@@ -1,6 +1,6 @@
 <template>
-<div :class="{box: box, box__disabled: disabled}" @click="toggleBox">
-  <img v-if="isOpen"  :src="path+imageURL" />
+<div :class="{box: box, isOpen: isOpen, box__disabled: disabled}" @click="toggleBox">
+  <img v-if="isOpen"  :src="path+imageURL" :class="{remove: disabled}"/>
   <span v-else>Box</span>
 </div>
 </template>
@@ -49,19 +49,28 @@ export default {
   font-weight: bolder;
   padding: 3px;
   border-radius: 5px;
-  background-color: #fcfcfc;
-  border: 1px solid #aaa;
+  background-color: #5e08a2;
+  color: #ffffff;
+  border: 1px solid #5e08a2;
 }
-.box :hover {
+.box:hover {
   box-shadow: 0 6px 8px -2px rgba(95, 7, 162, 0.45);
+  transition: box-shadow 0.5s;
 }
 .box__disabled {
-  background-color: transparent;
-  border: 1px solid #aaa;
+  background-color: #bbb !important;
   cursor: default;
+  border: 1px solid #aaa;
+}
+.isOpen {
+  background-color: #fff;
 }
 .box img {
   width: inherit;
   height: inherit;
+}
+.remove {
+  display: none;
+  transition: display 9s;
 }
 </style>

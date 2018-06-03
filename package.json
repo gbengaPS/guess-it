@@ -10,11 +10,13 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "deploy": "npm run build; push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-animate": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -54,6 +56,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
+    "push-dir": "^0.4.1",
     "rimraf": "^2.6.0",
     "sass-loader": "^7.0.1",
     "semver": "^5.3.0",

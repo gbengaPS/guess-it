@@ -1,8 +1,14 @@
 <template>
 <div class="wrapper">
   <nav><h1>Guess It</h1></nav>
+   <select v-model="level" v-on:change="handleGameLevel">
+      <option value="" > Select game level </option>
+      <option value="1">Easy</option>
+      <option value="2">Medium</option>
+      <option value="3">Hard</option>
+  </select>
   <div id="app">
-    <BoxContainer :imageURLs="imageURLs"></BoxContainer>
+    <BoxContainer :imageURLs="imageURLs" />
   </div>
 </div>
 </template>
@@ -10,37 +16,20 @@
 <script>
 import BoxContainer from '@/components/BoxContainer';
 import generateGame from './helpers/generateGame';
+import gameArray from './helpers/gameArray';
 
 export default {
   name: 'App',
   data() {
-    const arr = [
-      'Batman.png',
-      'bed.png',
-      'book.ico',
-      'cookies.ico',
-      'dog.ico',
-      'eye.ico',
-      'fish.ico',
-      'horse.png',
-      'htgawm.png',
-      'playstation.png',
-      'poi.ico',
-      'sneakers.ico',
-      'spiderman.png',
-      'spongebob.png',
-      'superman.png',
-      'jug.ico',
-      'ironman.ico',
-      'ferrari.png',
-      'Naruto.ico',
-      'mario.ico',
-      'brain.ico',
-      'black-panther.png',
-    ];
     return {
-      imageURLs: generateGame(30, arr),
+      imageURLs: [],
+      level: 1,
     };
+  },
+  methods: {
+    handleGameLevel() {
+      this.imageURLs = generateGame(10 * this.level, gameArray);
+    },
   },
   components: {
     BoxContainer,

@@ -13,6 +13,7 @@
   </div>
   <div class="game-info">
     <h2> Score</h2>
+    <p class="score">{{score}}</p>
   </div>
   </div>
 </div>
@@ -26,10 +27,15 @@ export default {
     return {
       previous: {},
       current: {},
+      clickCount: 0,
+      currentScoreClicks: 0,
+      score: 0,
+      opened: 0,
     };
   },
   methods: {
     runChecks(value, index) {
+      this.handleClickCount();
       if (!this.previous.value) {
         this.previous = { value, index };
       } else if (this.previous.value && !this.current.value) {
@@ -58,8 +64,30 @@ export default {
         this.previous = {};
         this.current = {};
         response = true;
+        this.opened += 2;
+        this.handleGameScore();
       }
       return response;
+    },
+    handleClickCount() {
+      this.clickCount += 1;
+    },
+    handleGameScore() {
+      if (this.clickCount < 7) {
+        this.score += 4;
+      }
+      if (this.clickCount === this.currentScoreClicks + 2) {
+        this.score += 4;
+      }
+      if (this.opened === this.imageURLs.length) {
+        const bonus = this.imageURLs.length * 2 - this.clickCount;
+        if (bonus > 0) {
+          this.score += bonus;
+        }
+      }
+
+      this.currentScoreClicks = this.clickCount;
+      this.score += 2;
     },
     checkMultipleClicks() {},
   },
@@ -78,11 +106,13 @@ export default {
   border-radius: 5px;
 }
 .game-wrapper {
-  background-color: #fff;
   padding: 30px;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #fcfcfc;
+}
+.score {
+  text-align: center;
 }
 .game-info {
   width: 150px;
@@ -90,6 +120,6 @@ export default {
 .game-info h2 {
   text-align: center;
   margin: 0;
-  color: #fff;
+  color: #222;
 }
 </style>
