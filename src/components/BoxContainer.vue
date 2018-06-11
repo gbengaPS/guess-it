@@ -80,7 +80,8 @@ export default {
         this.score += 4;
       }
       if (this.opened === this.imageURLs.length) {
-        const bonus = this.imageURLs.length * 2 - this.clickCount;
+        const boxCount = this.imageURLs.length * 2;
+        const bonus = boxCount - this.clickCount;
         if (bonus > 0) {
           this.score += bonus;
         }
